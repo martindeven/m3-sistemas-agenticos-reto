@@ -1,0 +1,163 @@
+{
+  "historia": "HU-01",
+  "casos": [
+    {
+      "id": "CP-01",
+      "escenario": "Registrar un empleado con datos válidos",
+      "nivel": "api",
+      "precondiciones": [
+        "No existen empleados registrados previamente"
+      ],
+      "pasos": [
+        "Enviar POST /api/empleados con nombre 'Ana Torres', correo 'ANA.TORRES@EMPRESA.COM', puesto 'Desarrolladora', departamento 'Tecnología' y fecha_ingreso '2024-01-15'",
+        "Verificar el código de respuesta HTTP",
+        "Verificar el campo numero_empleado en la respuesta",
+        "Verificar el campo correo en la respuesta",
+        "Verificar el campo estado en la respuesta"
+      ],
+      "datos": {
+        "nombre": "Ana Torres",
+        "correo": "ANA.TORRES@EMPRESA.COM",
+        "puesto": "Desarrolladora",
+        "departamento": "Tecnología",
+        "fecha_ingreso": "2024-01-15"
+      },
+      "resultado_esperado": "La API responde 201, el empleado queda registrado con numero_empleado 'EMP-0001', el correo se guarda como 'ana.torres@empresa.com' y el estado es 'activo'"
+    },
+    {
+      "id": "CP-02",
+      "escenario": "Registrar un empleado con datos válidos",
+      "nivel": "e2e",
+      "precondiciones": [
+        "No existen empleados registrados previamente",
+        "El usuario está en la pantalla de registro de empleados"
+      ],
+      "pasos": [
+        "Completar el campo data-testid='empleado-nombre' con 'Ana Torres'",
+        "Completar el campo data-testid='empleado-correo' con 'ANA.TORRES@EMPRESA.COM'",
+        "Completar el campo data-testid='empleado-puesto' con 'Desarrolladora'",
+        "Seleccionar en data-testid='empleado-departamento' la opción 'Tecnología'",
+        "Completar el campo data-testid='empleado-fecha-ingreso' con '2024-01-15'",
+        "Hacer clic en el botón data-testid='empleado-guardar'",
+        "Verificar que el elemento data-testid='mensaje-exito' se muestra e incluye el texto 'EMP-0001'"
+      ],
+      "datos": {
+        "nombre": "Ana Torres",
+        "correo": "ANA.TORRES@EMPRESA.COM",
+        "puesto": "Desarrolladora",
+        "departamento": "Tecnología",
+        "fecha_ingreso": "2024-01-15"
+      },
+      "resultado_esperado": "La pantalla muestra en mensaje-exito un mensaje de confirmación que incluye el número de empleado 'EMP-0001'"
+    },
+    {
+      "id": "CP-03",
+      "escenario": "Intentar registrar un empleado con un correo ya registrado",
+      "nivel": "api",
+      "precondiciones": [
+        "Existe un empleado registrado con correo 'ana.torres@empresa.com'"
+      ],
+      "pasos": [
+        "Enviar POST /api/empleados con nombre 'Ana Torres', correo 'Ana.Torres@empresa.com', puesto 'Analista', departamento 'Ventas' y fecha_ingreso '2024-02-01'",
+        "Verificar el código de respuesta HTTP",
+        "Verificar el mensaje de error en el campo detail"
+      ],
+      "datos": {
+        "nombre": "Ana Torres",
+        "correo": "Ana.Torres@empresa.com",
+        "puesto": "Analista",
+        "departamento": "Ventas",
+        "fecha_ingreso": "2024-02-01"
+      },
+      "resultado_esperado": "La API responde 409 con detail 'El correo ya está registrado'"
+    },
+    {
+      "id": "CP-04",
+      "escenario": "Intentar registrar un empleado con un correo que no es corporativo",
+      "nivel": "api",
+      "precondiciones": [
+        "No existen empleados registrados previamente"
+      ],
+      "pasos": [
+        "Enviar POST /api/empleados con nombre 'Luis Pérez', correo 'luis.perez@gmail.com', puesto 'Contador', departamento 'Finanzas' y fecha_ingreso '2024-03-01'",
+        "Verificar el código de respuesta HTTP",
+        "Verificar el mensaje de error en el campo detail"
+      ],
+      "datos": {
+        "nombre": "Luis Pérez",
+        "correo": "luis.perez@gmail.com",
+        "puesto": "Contador",
+        "departamento": "Finanzas",
+        "fecha_ingreso": "2024-03-01"
+      },
+      "resultado_esperado": "La API responde 422 con detail 'Usa el correo corporativo @empresa.com'"
+    },
+    {
+      "id": "CP-05",
+      "escenario": "Intentar registrar un empleado con una fecha de ingreso futura",
+      "nivel": "api",
+      "precondiciones": [
+        "La fecha actual del sistema es '2024-05-10'"
+      ],
+      "pasos": [
+        "Enviar POST /api/empleados con nombre 'Marta Ruiz', correo 'marta.ruiz@empresa.com', puesto 'Gerente', departamento 'Operaciones' y fecha_ingreso '2024-06-01'",
+        "Verificar el código de respuesta HTTP",
+        "Verificar el mensaje de error en el campo detail"
+      ],
+      "datos": {
+        "nombre": "Marta Ruiz",
+        "correo": "marta.ruiz@empresa.com",
+        "puesto": "Gerente",
+        "departamento": "Operaciones",
+        "fecha_ingreso": "2024-06-01"
+      },
+      "resultado_esperado": "La API responde 422 con detail 'La fecha de ingreso no puede ser futura'"
+    },
+    {
+      "id": "CP-06",
+      "escenario": "Intentar registrar un empleado con un departamento que no está en la lista permitida",
+      "nivel": "api",
+      "precondiciones": [
+        "No existen empleados registrados previamente"
+      ],
+      "pasos": [
+        "Enviar POST /api/empleados con nombre 'Carlos Díaz', correo 'carlos.diaz@empresa.com', puesto 'Supervisor', departamento 'Marketing' y fecha_ingreso '2024-01-10'",
+        "Verificar el código de respuesta HTTP"
+      ],
+      "datos": {
+        "nombre": "Carlos Díaz",
+        "correo": "carlos.diaz@empresa.com",
+        "puesto": "Supervisor",
+        "departamento": "Marketing",
+        "fecha_ingreso": "2024-01-10"
+      },
+      "resultado_esperado": "La API responde 422 por departamento inválido"
+    },
+    {
+      "id": "CP-07",
+      "escenario": "Intentar registrar un empleado con un departamento que no está en la lista permitida",
+      "nivel": "e2e",
+      "precondiciones": [
+        "No existen empleados registrados previamente",
+        "El usuario está en la pantalla de registro de empleados"
+      ],
+      "pasos": [
+        "Completar el campo data-testid='empleado-nombre' con 'Carlos Díaz'",
+        "Completar el campo data-testid='empleado-correo' con 'carlos.diaz@empresa.com'",
+        "Completar el campo data-testid='empleado-puesto' con 'Supervisor'",
+        "Seleccionar o escribir en data-testid='empleado-departamento' el valor 'Marketing'",
+        "Completar el campo data-testid='empleado-fecha-ingreso' con '2024-01-10'",
+        "Hacer clic en el botón data-testid='empleado-guardar'",
+        "Verificar que el elemento data-testid='mensaje-error' indica que el campo departamento debe corregirse"
+      ],
+      "datos": {
+        "nombre": "Carlos Díaz",
+        "correo": "carlos.diaz@empresa.com",
+        "puesto": "Supervisor",
+        "departamento": "Marketing",
+        "fecha_ingreso": "2024-01-10"
+      },
+      "resultado_esperado": "La pantalla muestra en mensaje-error que el campo 'departamento' debe corregirse"
+    }
+  ]
+}
