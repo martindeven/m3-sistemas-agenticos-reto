@@ -19,6 +19,7 @@ from flujos.util import dibuja_grafo
 
 
 class Estado(s2.Estado, total=False):
+    """Estado de la sesión 3: el de la sesión 2 más los resultados de despliegue y pruebas."""
     despliegue_ok: bool
     log_despliegue: str
     pruebas_ok: bool
@@ -26,6 +27,7 @@ class Estado(s2.Estado, total=False):
 
 
 def desplegar(s: Estado) -> Estado:
+    """Nodo agente: despliegue con Docker Compose y verificación determinista, hasta 2 intentos."""
     errores = ""
     for intento in (1, 2):                                             # Agente 4 + verificación determinista
         _, costo = agente_despliegue(errores)
@@ -38,6 +40,7 @@ def desplegar(s: Estado) -> Estado:
 
 
 def automatizar(s: Estado) -> Estado:
+    """Nodo agente: el automatizador escribe las pruebas y se verifica la trazabilidad, hasta 2 intentos."""
     ids = [c.id for c in PlanPruebas.model_validate_json(Path(s["casos"]).read_text(encoding="utf-8")).casos]
     errores = ""
     for intento in (1, 2):                                             # Agente 5 + verificación determinista
@@ -51,16 +54,19 @@ def automatizar(s: Estado) -> Estado:
 
 
 def despues_de_verificar(s: Estado) -> list[str] | Literal["construir", "fin"]:
+    """Arista condicional: con la app verificada, despliegue y automatización en paralelo."""
     if s["app_ok"]:
         return ["desplegar", "automatizar"]                            # dos ramas en paralelo
     return "construir" if s["intentos"] < s2.MAX_INTENTOS else "fin"
 
 
 def listo(s: Estado) -> Estado:
+    """Nodo workflow: punto de unión de las dos ramas paralelas."""
     return {"bitacora": ["Despliegue y pruebas listos"]}               # punto de unión de las ramas
 
 
 def construir_grafo():
+    """Arma y compila el grafo de la sesión 3 y dibuja su diagrama."""
     g = StateGraph(Estado)
     for nombre, fn in [("analizar", s2.analizar), ("pedir_aclaracion", s2.pedir_aclaracion),
                        ("disenar_casos", s2.disenar), ("planificar", s2.planificar),

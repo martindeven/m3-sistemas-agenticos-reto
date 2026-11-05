@@ -24,6 +24,7 @@ def preparar_app() -> None:
 
 
 def requisitos(hu: str) -> str:
+    """Arma el contexto del desarrollador: reglas de negocio, criterios y casos de prueba de la historia."""
     carpeta = SALIDA / hu
     return (f"## Reglas de negocio\n{(RAIZ / 'contexto' / 'reglas_negocio.md').read_text(encoding='utf-8')}\n"
             f"## Criterios de aceptación de {hu}\n{(carpeta / 'criterios.feature').read_text(encoding='utf-8')}\n"
