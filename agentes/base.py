@@ -30,6 +30,7 @@ def hu_de(historia: Path) -> str:
 # --- Herramientas ------------------------------------------------------
 @dataclass
 class Herramienta:
+    """Herramienta que el modelo puede pedir: nombre, descripción, parámetros JSON Schema y la función que la ejecuta."""
     nombre: str
     descripcion: str
     parametros: dict  # propiedades JSON Schema; todas obligatorias

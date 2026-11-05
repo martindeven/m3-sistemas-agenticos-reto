@@ -25,6 +25,7 @@ Responde con las URL de la aplicación y de la documentación de la API."""
 
 
 def desplegar(errores: str = "") -> tuple[str, float]:
+    """Pide a Claude Code que escriba los archivos de Docker y levante la app; con `errores`, corrige el intento anterior."""
     prompt = TAREA + (f"\n\nEl despliegue anterior falló; corrige esto:\n{errores}" if errores else "")
     return ejecutar_claude_code(prompt, agente="despliegue", cwd=APP, herramientas=EDICION,
                                 escritura=ESCRITURA, programas=PROGRAMAS, instrucciones=INSTRUCCIONES)

@@ -4,7 +4,7 @@ services:
     ports:
       - "8000:8000"
     volumes:
-      - backend_datos:/app/datos
+      - ./backend/datos:/app/datos
     healthcheck:
       test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://localhost:8000/api/salud', timeout=3)"]
       interval: 10s
@@ -17,6 +17,3 @@ services:
       - "8080:80"
     depends_on:
       - backend
-
-volumes:
-  backend_datos:

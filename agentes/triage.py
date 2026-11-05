@@ -12,6 +12,7 @@ from agentes.base import SALIDA
 
 
 class Diagnostico(BaseModel):
+    """Salida estructurada del triage: quién corrige, la causa, el criterio de referencia y la instrucción."""
     responsable: Literal["desarrollador", "automatizador", "despliegue"]
     causa: str          # qué falló, en una o dos frases
     criterio: str       # escenario de aceptación que se usa como referencia
@@ -32,6 +33,7 @@ El criterio de aceptación manda: si la prueba y la aplicación no coinciden, ga
 
 
 def diagnosticar(hu: str, fallos: str) -> Diagnostico:
+    """Una llamada a un LLM con salida estructurada: decide qué agente corrige las pruebas fallidas."""
     llm = ChatAnthropic(model=os.environ["MODEL"], max_tokens=2000)
     criterios = (SALIDA / hu / "criterios.feature").read_text(encoding="utf-8")
     return llm.with_structured_output(Diagnostico).invoke(PROMPT.format(criterios=criterios, fallos=fallos[:6000]))

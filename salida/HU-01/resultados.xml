@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="0" failures="5" skipped="1" tests="35" time="40.209" timestamp="2026-11-05T10:49:38.315434-06:00" hostname="DESKTOP-M4HGR1K"><testcase classname="tests.api.test_hu_01" name="test_cp01_registrar_empleado_datos_validos" time="0.083" /><testcase classname="tests.api.test_hu_01" name="test_cp03_correo_ya_registrado" time="0.046" /><testcase classname="tests.api.test_hu_01" name="test_cp04_correo_no_corporativo" time="0.016" /><testcase classname="tests.api.test_hu_01" name="test_cp05_fecha_ingreso_futura" time="0.016" /><testcase classname="tests.api.test_hu_01" name="test_cp06_departamento_invalido" time="0.015" /><testcase classname="tests.api.test_hu_02" name="test_cp01_directorio_completo_con_datos_principales" time="0.065" /><testcase classname="tests.api.test_hu_02" name="test_cp03_buscar_empleado_por_nombre" time="0.046" /><testcase classname="tests.api.test_hu_02" name="test_cp05_buscar_empleado_por_correo" time="0.043" /><testcase classname="tests.api.test_hu_02" name="test_cp07_busqueda_no_distingue_mayusculas" time="0.040" /><testcase classname="tests.api.test_hu_02" name="test_cp09_filtrar_empleados_por_departamento" time="0.059" /><testcase classname="tests.api.test_hu_02" name="test_cp11_busqueda_sin_coincidencias" time="0.016" /><testcase classname="tests.api.test_hu_02" name="test_cp13_empleado_baja_sigue_en_directorio" time="0.023"><failure message="sqlite3.OperationalError: attempt to write a readonly database">tests/api/test_hu_02.py:156: in test_cp13_empleado_baja_sigue_en_directorio
+    _marcar_baja(empleado["id"], "2024-01-10")
+tests/api/test_hu_02.py:38: in _marcar_baja
+    conexion.execute(
+E   sqlite3.OperationalError: attempt to write a readonly database</failure></testcase><testcase classname="tests.api.test_hu_03" name="test_cp01_editar_puesto_y_departamento_empleado_activo" time="0.044" /><testcase classname="tests.api.test_hu_03" name="test_cp03_dar_de_baja_empleado_activo" time="0.056" /><testcase classname="tests.api.test_hu_03" name="test_cp05_no_editar_empleado_dado_de_baja" time="0.055" /><testcase classname="tests.api.test_hu_03" name="test_cp07_editar_con_puesto_invalido" time="0.041" /><testcase classname="tests.api.test_hu_03" name="test_cp09_editar_con_departamento_no_permitido" time="0.034" /><testcase classname="tests.api.test_hu_03" name="test_cp11_dar_de_baja_con_fecha_anterior_a_ingreso" time="0.037" /><testcase classname="tests.api.test_hu_03" name="test_cp13_dar_de_baja_sin_fecha_baja" time="0.037"><failure message="AssertionError: assert 'fecha_baja' in 'Input should be a valid date or datetime, input is too short'">tests/api/test_hu_03.py:130: in test_cp13_dar_de_baja_sin_fecha_baja
+    assert "fecha_baja" in respuesta.json()["detail"]
+E   AssertionError: assert 'fecha_baja' in 'Input should be a valid date or datetime, input is too short'</failure></testcase><testcase classname="tests.e2e.test_hu_01_e2e" name="test_cp02_registrar_empleado_datos_validos[chromium]" time="1.278" /><testcase classname="tests.e2e.test_hu_01_e2e" name="test_cp07_departamento_invalido[chromium]" time="0.000"><skipped type="pytest.skip" message="CP-07 pide elegir el departamento inválido 'Marketing', pero data-testid='empleado-departamento' es un &lt;select&gt; con únicamente las opciones del catálogo (Tecnología, Ventas, Finanzas, Recursos Humanos, Operaciones); la pantalla real no permite seleccionar un valor fuera de esa lista, así que el escenario no es alcanzable desde la UI. El caso equivalente a nivel API ya está cubierto por CP-06.">/home/martin/proyectos/ia-curso/modulo3/reto/modulo3/m3-sistemas_agenticos/app/tests/e2e/test_hu_01_e2e.py:30: CP-07 pide elegir el departamento inválido 'Marketing', pero data-testid='empleado-departamento' es un &lt;select&gt; con únicamente las opciones del catálogo (Tecnología, Ventas, Finanzas, Recursos Humanos, Operaciones); la pantalla real no permite seleccionar un valor fuera de esa lista, así que el escenario no es alcanzable desde la UI. El caso equivalente a nivel API ya está cubierto por CP-06.</skipped></testcase><testcase classname="tests.e2e.test_hu_02_e2e" name="test_cp02_directorio_completo_con_datos_principales[chromium]" time="0.175" /><testcase classname="tests.e2e.test_hu_02_e2e" name="test_cp04_buscar_empleado_por_nombre[chromium]" time="0.160" /><testcase classname="tests.e2e.test_hu_02_e2e" name="test_cp06_buscar_empleado_por_correo[chromium]" time="0.138" /><testcase classname="tests.e2e.test_hu_02_e2e" name="test_cp08_busqueda_no_distingue_mayusculas[chromium]" time="0.142" /><testcase classname="tests.e2e.test_hu_02_e2e" name="test_cp10_filtrar_empleados_por_departamento[chromium]" time="0.162" /><testcase classname="tests.e2e.test_hu_02_e2e" name="test_cp12_busqueda_sin_coincidencias[chromium]" time="0.143" /><testcase classname="tests.e2e.test_hu_02_e2e" name="test_cp14_empleado_baja_sigue_en_directorio[chromium]" time="0.048"><failure message="sqlite3.OperationalError: attempt to write a readonly database">tests/e2e/test_hu_02_e2e.py:165: in test_cp14_empleado_baja_sigue_en_directorio
+    _marcar_baja(empleado["id"], "2024-01-10")
+tests/e2e/test_hu_02_e2e.py:39: in _marcar_baja
+    conexion.execute(
+E   sqlite3.OperationalError: attempt to write a readonly database</failure></testcase><testcase classname="tests.e2e.test_hu_03_e2e" name="test_cp02_editar_puesto_y_departamento_empleado_activo[chromium]" time="0.283" /><testcase classname="tests.e2e.test_hu_03_e2e" name="test_cp04_dar_de_baja_empleado_activo[chromium]" time="0.302" /><testcase classname="tests.e2e.test_hu_03_e2e" name="test_cp06_no_editar_empleado_dado_de_baja[chromium]" time="0.317" /><testcase classname="tests.e2e.test_hu_03_e2e" name="test_cp08_editar_con_puesto_invalido[chromium]" time="0.294" /><testcase classname="tests.e2e.test_hu_03_e2e" name="test_cp10_editar_con_departamento_no_permitido[chromium]" time="30.174"><failure message="playwright._impl._errors.TimeoutError: Locator.select_option: Timeout 30000ms exceeded.&#10;Call log:&#10;  - waiting for get_by_test_id(&quot;fila-empleado-61&quot;).get_by_test_id(&quot;empleado-departamento&quot;)&#10;    - locator resolved to &lt;select data-testid=&quot;empleado-departamento&quot;&gt;…&lt;/select&gt;&#10;  - attempting select option action&#10;    2 × waiting for element to be visible and enabled&#10;      - did not find some options&#10;    - retrying select option action&#10;    - waiting 20ms&#10;[+8 more lines; full report in element text]">tests/e2e/test_hu_03_e2e.py:98: in test_cp10_editar_con_departamento_no_permitido
+    fila.get_by_test_id("empleado-departamento").select_option("Marketing")
+../.venv/lib/python3.12/site-packages/playwright/sync_api/_generated.py:13173: in select_option
+    self._sync(
+../.venv/lib/python3.12/site-packages/playwright/_impl/_locator.py:652: in select_option
+    return await self._frame.select_option(
+../.venv/lib/python3.12/site-packages/playwright/_impl/_frame.py:819: in select_option
+    return await self._channel.send("selectOption", self._timeout, params)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+../.venv/lib/python3.12/site-packages/playwright/_impl/_connection.py:78: in send
+    return await self._connection.wrap_api_call(
+../.venv/lib/python3.12/site-packages/playwright/_impl/_connection.py:636: in wrap_api_call
+    raise rewrite_error(error, f"{parsed_st['apiName']}: {error}") from None
+E   playwright._impl._errors.TimeoutError: Locator.select_option: Timeout 30000ms exceeded.
+E   Call log:
+E     - waiting for get_by_test_id("fila-empleado-61").get_by_test_id("empleado-departamento")
+E       - locator resolved to &lt;select data-testid="empleado-departamento"&gt;…&lt;/select&gt;
+E     - attempting select option action
+E       2 × waiting for element to be visible and enabled
+E         - did not find some options
+E       - retrying select option action
+E       - waiting 20ms
+E       2 × waiting for element to be visible and enabled
+E         - did not find some options
+E       - retrying select option action
+E         - waiting 100ms
+E       60 × waiting for element to be visible and enabled
+E          - did not find some options
+E        - retrying select option action
+E          - waiting 500ms</failure></testcase><testcase classname="tests.e2e.test_hu_03_e2e" name="test_cp12_dar_de_baja_con_fecha_anterior_a_ingreso[chromium]" time="0.286" /><testcase classname="tests.e2e.test_hu_03_e2e" name="test_cp14_dar_de_baja_sin_fecha_baja[chromium]" time="5.286"><failure message="AssertionError: Locator expected to contain text 'fecha_baja'&#10;Actual value: Input should be a valid date or datetime, input is too short &#10;Call log:&#10;  - Expect &quot;to_contain_text&quot; get_by_test_id(&quot;mensaje-error&quot;) with timeout 5000ms&#10;  - waiting for get_by_test_id(&quot;mensaje-error&quot;)&#10;    13 × locator resolved to &lt;p data-testid=&quot;mensaje-error&quot;&gt;Input should be a valid date or datetime, input i…&lt;/p&gt;&#10;       - unexpected value &quot;Input should be a valid date or datetime, input is too short&quot;&#10;&#10;Aria snapshot:&#10;[+1 more line; full report in element text]">tests/e2e/test_hu_03_e2e.py:127: in test_cp14_dar_de_baja_sin_fecha_baja
+    expect(page.get_by_test_id("mensaje-error")).to_contain_text("fecha_baja")
+E   AssertionError: Locator expected to contain text 'fecha_baja'
+E   Actual value: Input should be a valid date or datetime, input is too short 
+E   Call log:
+E     - Expect "to_contain_text" get_by_test_id("mensaje-error") with timeout 5000ms
+E     - waiting for get_by_test_id("mensaje-error")
+E       13 × locator resolved to &lt;p data-testid="mensaje-error"&gt;Input should be a valid date or datetime, input i…&lt;/p&gt;
+E          - unexpected value "Input should be a valid date or datetime, input is too short"
+E   
+E   Aria snapshot:
+E   - paragraph: Input should be a valid date or datetime, input is too short</failure></testcase></testsuite></testsuites>

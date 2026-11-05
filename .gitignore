@@ -2,7 +2,6 @@
 __pycache__/
 *.pyc
 .env
-auditoria.jsonl
 .DS_Store
 app/frontend/node_modules/
 app/frontend/dist/
@@ -11,3 +10,5 @@ app/test-results/
 ejemplos/salidas/
 lab_agents
 .pytest_cache/
+.langgraph/
+app/.tmp_fds.txt

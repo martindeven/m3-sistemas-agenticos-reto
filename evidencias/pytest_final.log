@@ -1,0 +1,12 @@
+.................................s...........s.............              [100%]
+=============================== warnings summary ===============================
+tests/e2e/test_hu_01_e2e.py::test_cp02_registrar_empleado_datos_validos[chromium]
+  /home/martin/proyectos/ia-curso/modulo3/reto/modulo3/m3-sistemas_agenticos/.venv/lib/python3.12/site-packages/_pytest/fixtures.py:1392: PytestRemovedIn10Warning: Session-scoped fixtures defined as instance methods are deprecated.
+  Instance attributes set in the 'base_url' fixture will NOT be visible to test methods,
+  as each test gets a new instance while the fixture runs only once per class.
+  Use a @classmethod decorator below @pytest.fixture and set attributes on cls instead.
+  See https://docs.pytest.org/en/stable/deprecations.html#class-scoped-fixture-as-instance-method
+    fixturefunc = resolve_fixture_function(fixturedef, request)
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+57 passed, 2 skipped, 1 warning in 8.86s

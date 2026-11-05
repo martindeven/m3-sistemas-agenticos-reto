@@ -1,4 +1,5 @@
-import { useEffect, useState } from 'react'
+import { Fragment, useEffect, useState } from 'react'
+import PanelVacaciones from './PanelVacaciones.jsx'
 
 const ESTADOS = {
   activo: 'Activo',
@@ -7,7 +8,7 @@ const ESTADOS = {
 
 const DEPARTAMENTOS_FIJOS = ['Tecnología', 'Ventas', 'Finanzas', 'Recursos Humanos', 'Operaciones']
 
-function FilaEmpleado({ empleado, onCambio, onMensaje }) {
+function FilaEmpleado({ empleado, onCambio, onMensaje, onAbrirVacaciones }) {
   const [modo, setModo] = useState(null) // null | 'editar' | 'baja'
   const [puesto, setPuesto] = useState(empleado.puesto)
   const [departamento, setDepartamento] = useState(empleado.departamento)
@@ -132,6 +133,14 @@ function FilaEmpleado({ empleado, onCambio, onMensaje }) {
                 Dar de baja
               </button>
             )}
+            {empleado.estado === 'activo' && (
+              <button
+                data-testid={`vacaciones-abrir-${empleado.id}`}
+                onClick={() => onAbrirVacaciones(empleado.id)}
+              >
+                <span data-testid={`vacaciones-empleado-${empleado.id}`}>Solicitar vacaciones</span>
+              </button>
+            )}
           </>
         )}
       </td>
@@ -146,6 +155,7 @@ function DirectorioEmpleados() {
   const [departamento, setDepartamento] = useState('')
   const [mensajeExito, setMensajeExito] = useState('')
   const [mensajeError, setMensajeError] = useState('')
+  const [empleadoVacacionesAbiertoId, setEmpleadoVacacionesAbiertoId] = useState(null)
 
   useEffect(() => {
     fetch('/api/departamentos')
@@ -170,6 +180,15 @@ function DirectorioEmpleados() {
   function mostrarMensaje(exito, error) {
     setMensajeExito(exito)
     setMensajeError(error)
+  }
+
+  function abrirVacaciones(id) {
+    mostrarMensaje('', '')
+    setEmpleadoVacacionesAbiertoId(id)
+  }
+
+  function cerrarVacaciones() {
+    setEmpleadoVacacionesAbiertoId(null)
   }
 
   return (
@@ -215,12 +234,17 @@ function DirectorioEmpleados() {
           </thead>
           <tbody>
             {empleados.map((empleado) => (
-              <FilaEmpleado
-                key={empleado.id}
-                empleado={empleado}
-                onCambio={cargarEmpleados}
-                onMensaje={mostrarMensaje}
-              />
+              <Fragment key={empleado.id}>
+                <FilaEmpleado
+                  empleado={empleado}
+                  onCambio={cargarEmpleados}
+                  onMensaje={mostrarMensaje}
+                  onAbrirVacaciones={abrirVacaciones}
+                />
+                {empleadoVacacionesAbiertoId === empleado.id && (
+                  <PanelVacaciones empleado={empleado} onCerrar={cerrarVacaciones} />
+                )}
+              </Fragment>
             ))}
           </tbody>
         </table>

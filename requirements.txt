@@ -15,4 +15,5 @@ email-validator
 mcp>=1.23,<2
 chromium
 langgraph-checkpoint-postgres
+langgraph-checkpoint-sqlite
 psycopg[binary]
